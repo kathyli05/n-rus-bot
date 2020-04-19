@@ -3,11 +3,17 @@ import json
 import discord
 import discord.ext.commands as commands
 
+EXTENSIONS = [
+    'modules.misc'
+]
+
 
 class NRus(commands.Bot):
     def __init__(self, settings):
         super().__init__(command_prefix=_get_prefix)
         self.settings = settings
+        for ext in EXTENSIONS:
+            self.load_extension(ext)
         # Temporary until I implement DB
         with open('prefixes.json') as f:
             self.guild_prefixes: dict = json.load(f)
